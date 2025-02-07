@@ -3,12 +3,15 @@ const cors = require('cors');
 const { MongoClient, ObjectId } = require('mongodb'); // Import ObjectId separately
 const app = express();
 const port = process.env.PORT || 3000;
+require('dotenv').config(); // Add this line at the top of your file
 
 app.use(cors());
 app.use(express.json());
+// DB_USERS=bappy
+// DB_PASS=Amihscdimo
 
 // MongoDB connection string
-const uri = "mongodb+srv://bappy:Amihscdimo@cluster0.uxwhh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.DB_USERS}:${process.env.DB_PASS}@cluster0.uxwhh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const client = new MongoClient(uri);
 
 async function run() {
