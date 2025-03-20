@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { MongoClient, ObjectId } = require('mongodb'); // Import ObjectId separately
 const app = express();
+const jwt=require('jsonwebtoken')
 const port = process.env.PORT || 3000;
 require('dotenv').config(); // Add this line at the top of your file
 
@@ -89,6 +90,12 @@ app.post('/add-review', async (req, res) => {
     res.status(500).json({ message: 'Error adding review' });
   }
 });
+//auth rtelated
+app.post('/jwt',async(req,res)=>{
+  const user=req.body
+  const token=jwt.sign(user,'secret',{expiresIn:'1hr'})
+  res.send(token);
+})
 
 // GET endpoint to fetch all reviews
 app.get('/reviews', async (req, res) => {
